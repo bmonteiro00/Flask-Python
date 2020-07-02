@@ -1,3 +1,11 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+app/__pycache__/
+app/controllers/__pycache__/
+app/models/__pycache__/
+app/services/__pycache__/
+app/static/__pycache__/
+app/templates/__pycache__/
+app/test/__pycache__/
+app/utils/__pycache__/
