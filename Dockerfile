@@ -10,11 +10,8 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
-
-# Define environment variable
-#ENV NAME xxx
+#ENV MONGODB_HOST "localhost"
+#ENV MONGODB_DATABASE "gitbase"
 
 # Run app.py when the container launches
 CMD ["python", "run.py"]
