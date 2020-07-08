@@ -1,8 +1,8 @@
 version: "3"
 services:
   app:
-    #build: .
-    image: flask_mongo:v0.0.1
+    build: .
+    #image: flask_mongo:v0.0.1
     deploy:
       replicas: 1
       resources:
