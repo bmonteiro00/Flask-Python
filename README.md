@@ -22,5 +22,4 @@ Running locally(You must have installed the MONGODB locally) :
 To improve :
     
     1) Add new test cases.
-    2) Add a try/catch mechanism to handle the save method on mongodb.
  

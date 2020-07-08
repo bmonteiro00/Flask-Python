@@ -1,6 +1,8 @@
 import unittest
 import json
 from app import app
+from unittest.mock import patch
+from test.support import EnvironmentVarGuard
 
 
 class DefaultTestCase(unittest.TestCase):
@@ -8,6 +10,10 @@ class DefaultTestCase(unittest.TestCase):
     def setUp(self):
         api = app.test_client()
         self.response = api.get('/')
+        self.env = EnvironmentVarGuard()
+        self.env.set('MONGODB_HOST', 'localhost')
+        self.env.set('MONGODB_DATABSE', 'gitbase')
+
 
     def test_content(self):
         self.assertEqual(200, self.response.status_code)
@@ -19,12 +25,15 @@ class TestRepositoryUser(unittest.TestCase):
     def setUp(self):
         api = app.test_client()
         self.response = api.get('/repository/user/bruno-m-santos')
+        self.env = EnvironmentVarGuard()
+        self.env.set('MONGODB_HOST', 'localhost')
+        self.env.set('MONGODB_DATABSE', 'gitbase')
 
     def test_get(self):
         self.assertEqual(200, self.response.status_code)
 
     def test_content(self):
-        self.assertEqual(b'["AkkaStream", "kafkaltsamples", "lt"]', self.response.data)
+        self.assertEqual(b'bruno-m-santos', self.response.data)
 
 
 class TestRepository(unittest.TestCase):
@@ -32,6 +41,9 @@ class TestRepository(unittest.TestCase):
     def setUp(self):
         api = app.test_client()
         self.response = api.get('repository/user/bruno-m-santos/lt')
+        self.env = EnvironmentVarGuard()
+        self.env.set('MONGODB_HOST', 'localhost')
+        self.env.set('MONGODB_DATABSE', 'gitbase')
 
     def test_content_type(self):
         self.assertIn('application/json', self.response.content_type)
@@ -40,7 +52,7 @@ class TestRepository(unittest.TestCase):
         self.assertEqual(200, self.response.status_code)
 
     def test_content(self):
-        self.assertEqual('bruno-m-santos/lt', json.loads(self.response.data)['full_name'])
+        self.assertEqual(b'lt', self.response.data)
 
 
 if __name__ == '__main__':
